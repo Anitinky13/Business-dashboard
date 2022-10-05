@@ -12,6 +12,7 @@ import {
   Pyramid,
   Customers,
   Kanban,
+  Line,
   Area,
   Bar,
   Pie,
@@ -20,13 +21,15 @@ import {
   ColorMapping,
   Editor,
 } from "./pages";
+import { useStateContext } from "./contexts/ContextProvider";
 import "./App.css";
 const App = () => {
-  const activeMenu = true;
+  const { activeMenu } = useStateContext();
+
   return (
     <div>
       <BrowserRouter>
-        <div classname="flex relative dark:bg-main-dark-bg">
+        <div className="flex relative dark:bg-main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
             <TooltipComponent content="Settings" position="Top">
               <button
@@ -40,11 +43,12 @@ const App = () => {
           </div>
           {activeMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
-              {" "}
-              Sidebar{" "}
+              <Sidebar />
             </div>
           ) : (
-            <div className="w-0 dark:bg-secondary-dark-bg"> Sidebar </div>
+            <div className="w-0 dark:bg-secondary-dark-bg">
+              <Sidebar />
+            </div>
           )}
           <div
             className={` dark:bg-main-bg bg-main-bg min-h-screen w-full ${
@@ -52,34 +56,33 @@ const App = () => {
             }`}
           >
             <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
-              Navbar
+              <Navbar />
             </div>
-          </div>
-          <div>
-            <Routes>
-              {/* Dashboard */}
-              <Route Path="/" element="Ecommerce" />
-              <Route Path="/ecommerce" element="Ecommerce" />
-              {/* Pages */}
-              <Route Path="/orders" element="Orders" />
-              <Route Path="/employees" element="Employees" />
-              <Route Path="/customers" element="Customers" />
-              {/* Apps */}
-              <Route Path="/kanban" element="Kanban" />
-              <Route Path="/editor" element="Editor" />
-              <Route Path="/calendar" element="Calendar" />
-              <Route Path="/color-picker" element="ColorPicker" />
-
-              {/* Charts */}
-              <Route Path="/line" element="Line" />
-              <Route Path="/area" element="Area" />
-              <Route Path="/bar" element="Bar" />
-              <Route Path="/pie" element="Pie" />
-              <Route Path="/financial" element="Financial" />
-              <Route Path="/color-mapping" element="ColorMapping" />
-              <Route Path="/pyramid" element="Pyramid" />
-              <Route Path="/stacked" element="Stacked" />
-            </Routes>
+            <div>
+              <Routes>
+                {/* Dashboard */}
+                <Route Path="/" element={<Ecommerce />} />
+                <Route Path="/ecommerce" element={<Ecommerce />} />
+                {/* Pages */}
+                <Route Path="/orders" element={<Orders />} />
+                <Route Path="/employees" element={<Employees />} />
+                <Route Path="/customers" element={<Customers />} />
+                {/* Apps */}
+                <Route Path="/kanban" element={<Kanban />} />
+                <Route Path="/editor" element={<Editor />} />
+                <Route Path="/calendar" element={<Calendar />} />
+                <Route Path="/color-picker" element={<ColorPicker />} />
+                {/* Charts */}
+                <Route Path="/line" element={<Line />} />
+                <Route Path="/area" element={<Area />} />
+                <Route Path="/bar" element={<Bar />} />
+                <Route Path="/pie" element={<Pie />} />
+                <Route Path="/financial" element={<Financial />} />
+                <Route Path="/color-mapping" element={<ColorMapping />} />
+                <Route Path="/pyramid" element={<Pyramid />} />
+                <Route Path="/stacked" element={<Stacked />} />
+              </Routes>
+            </div>
           </div>
         </div>
       </BrowserRouter>
